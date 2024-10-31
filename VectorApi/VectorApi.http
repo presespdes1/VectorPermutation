@@ -1,0 +1,6 @@
+@VectorApi_HostAddress = http://localhost:5249
+
+GET {{VectorApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
