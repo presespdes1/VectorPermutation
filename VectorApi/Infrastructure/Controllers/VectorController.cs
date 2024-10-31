@@ -23,11 +23,12 @@ namespace VectorApi.Infrastructure.Controllers
         [HttpPost]
         public IActionResult NextPermutation([FromBody] VectorDto vectorDto)
         {
+            if (!_vectorService.IsValid(vectorDto.Vector)) return BadRequest("Must be 1-99 numbers between 0-100");
 
             if (!_cache.TryGetValue(vectorKey, out int[] vector))
             {
                 var cacheEntryOptions = new MemoryCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromSeconds(30))
+                    .SetSlidingExpiration(TimeSpan.FromSeconds(10))
                     .SetAbsoluteExpiration(TimeSpan.FromSeconds(3600))
                     .SetPriority(CacheItemPriority.Normal);
 
